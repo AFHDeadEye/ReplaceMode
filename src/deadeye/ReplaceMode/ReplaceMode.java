@@ -117,45 +117,46 @@ public class ReplaceMode extends JavaPlugin {
     public boolean toggleReplacer(CommandSender sender, String[] split) {
         int id = 0;
         Player player = null;
+        if (!(sender instanceof Player)) {
+            return false;
+        }
+        player = (Player) sender;
+        if (!(Permissions.has(player, "replacemode.replacemode"))) {
+            return false;
+        }
         if (split.length > 1) {
             return false;
         }
-        if (split.length == 0 && !(isReplacer(player))) {
-            sender.sendMessage("Please Enter an item id!");
-            return false;
+        if (split.length == 0) {
+            if (!(isReplacer(player))) {
+                player.sendMessage("Please Enter an item id!");
+                return false;
+            } else {
+                Replacers.remove(player);
+                player.sendMessage("ReplaceMode deactivated!");
+            }
         }
         try {
             id = Integer.parseInt(split[0]);
         } catch (NumberFormatException ex) {
-            sender.sendMessage(split[0] + "is not a valid number!");
+            player.sendMessage(split[0] + "is not a valid number!");
             return false;
         }
         if (split.length == 1) {
-            if (sender.isOp()) {
-                player = matchPlayer(split[0], sender);
-                if (player == null) {
-                    return false;
+            if (isReplacer(player)) {
+                Replacers.remove(player);
+                Replacers.put(player, id);
+                player.sendMessage("Item id changed!");
+                return true;
+            } else {
+                if (!(player.getInventory().contains(277))) {
+                    player.getInventory().addItem(new ItemStack(277, 1));
                 }
+                Replacers.put(player, id);
+                player.sendMessage("ReplaceMode activated!");
+                return true;
             }
         }
-
-        if (isReplacer(player) && split.length == 0) {
-            Replacers.remove(player);
-            player.sendMessage("ReplaceMode deactivated!");
-        }
-
-        if (isReplacer(player) && split.length == 1) {
-            Replacers.remove(player);
-            Replacers.put(player, id);
-            player.sendMessage("Item id changed!");
-        } else {
-            if (!(player.getInventory().contains(277))) {
-                player.getInventory().addItem(new ItemStack(277, 1));
-            }
-            Replacers.put(player, id);
-            player.sendMessage("ReplaceMode activated!");
-        }
-
         return false;
     }
 
