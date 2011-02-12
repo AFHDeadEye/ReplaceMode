@@ -1,0 +1,12 @@
+name: ReplaceMode
+main: deadeye.replacemode.ReplaceMode
+version: 0.1
+
+commands:
+  replacemode:
+    description: Enters BuildMode and modifies BM-Range.
+    usage: |
+           /<command> id [player]
+           Example: /<command> - toggles BuildMode.
+           Example: /<command> Deadeye - toggles BuildMode for Deadeye.
+    aliases: rpm

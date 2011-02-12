@@ -1,0 +1,5 @@
+name: ReplaceMode
+
+main: deadeye.ReplaceMode
+
+version: 0.1
