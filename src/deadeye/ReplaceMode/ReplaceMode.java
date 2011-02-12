@@ -2,12 +2,12 @@ package deadeye.ReplaceMode;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
+//import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.ChatColor;
+//import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event;
@@ -47,10 +47,10 @@ public class ReplaceMode extends JavaPlugin {
         // Register our events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, this.blockListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_RESPAWN, this.playerListener, Priority.Normal, this);
         log = Logger.getLogger("Minecraft");
         PluginDescriptionFile pdfFile = this.getDescription();
         log.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
-        System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
         this.setupPermissions();
     }
 
@@ -58,7 +58,7 @@ public class ReplaceMode extends JavaPlugin {
         PluginDescriptionFile pdfFile = this.getDescription();
         log.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
     }
-
+/*      !!!!!!!!!!Auch im Import wieder einkommentieren!!!!!!!!!!
     private Player matchPlayer(String split, CommandSender sender) {
         Player player;
         List<Player> players = getServer().matchPlayer(split);
@@ -79,7 +79,7 @@ public class ReplaceMode extends JavaPlugin {
             return false;
         }
     }
-
+*/
     public void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
         PluginDescriptionFile pdfFile = this.getDescription();
@@ -134,6 +134,7 @@ public class ReplaceMode extends JavaPlugin {
             } else {
                 Replacers.remove(player);
                 player.sendMessage("ReplaceMode deactivated!");
+                return true;
             }
         }
         try {
