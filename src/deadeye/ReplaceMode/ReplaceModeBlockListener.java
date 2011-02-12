@@ -10,6 +10,7 @@ import org.bukkit.event.block.BlockRightClickEvent;
 
 /**
  * ReplaceMode block listener
+ * 
  * @author deadeye
  */
 public class ReplaceModeBlockListener extends BlockListener {
@@ -21,7 +22,7 @@ public class ReplaceModeBlockListener extends BlockListener {
 
     public void onBlockRightClick(BlockRightClickEvent event) {
         if (plugin.isReplacer(event.getPlayer())) {
-        event.getBlock().setTypeId(plugin.getReplaceId(event.getPlayer()));
+            event.getBlock().setTypeId(plugin.getReplaceId(event.getPlayer()));
         }
     }
 }

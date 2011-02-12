@@ -23,7 +23,7 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 /**
  * ReplaceMode for Bukkit
- *
+ * 
  * @author deadeye
  */
 public class ReplaceMode extends JavaPlugin {
@@ -33,12 +33,14 @@ public class ReplaceMode extends JavaPlugin {
     public static Logger log;
     public static PermissionHandler Permissions = null;
     private final HashMap<Player, Integer> Replacers = new HashMap<Player, Integer>();
-    
-    public ReplaceMode(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
+
+    public ReplaceMode(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder,
+            File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
         // TODO: Place any custom initialisation code here
 
-        // NOTE: Event registration should be done in onEnable not here as all events are unregistered when a plugin is disabled
+        // NOTE: Event registration should be done in onEnable not here as all
+        // events are unregistered when a plugin is disabled
     }
 
     public void onEnable() {
@@ -48,11 +50,12 @@ public class ReplaceMode extends JavaPlugin {
         log = Logger.getLogger("Minecraft");
         PluginDescriptionFile pdfFile = this.getDescription();
         log.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
-        System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
+        System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
         this.setupPermissions();
     }
+
     public void onDisable() {
-    	PluginDescriptionFile pdfFile = this.getDescription();
+        PluginDescriptionFile pdfFile = this.getDescription();
         log.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
     }
 
@@ -90,6 +93,7 @@ public class ReplaceMode extends JavaPlugin {
             }
         }
     }
+
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
             return debugees.get(player);
@@ -102,12 +106,14 @@ public class ReplaceMode extends JavaPlugin {
 
         debugees.put(player, value);
     }
+
     public boolean isReplacer(Player player) {
         if (Replacers.containsKey(player)) {
             return true;
         }
         return false;
     }
+
     public boolean toggleReplacer(CommandSender sender, String[] split) {
         int id = 0;
         Player player = null;
@@ -117,7 +123,7 @@ public class ReplaceMode extends JavaPlugin {
         if (split.length == 0 && !(isReplacer(player))) {
             sender.sendMessage("Please Enter an item id!");
             return false;
-            }
+        }
         try {
             id = Integer.parseInt(split[0]);
         } catch (NumberFormatException ex) {
@@ -137,27 +143,26 @@ public class ReplaceMode extends JavaPlugin {
             Replacers.remove(player);
             player.sendMessage("ReplaceMode deactivated!");
         }
-        
-        if (isReplacer(player) && split.length == 1){
+
+        if (isReplacer(player) && split.length == 1) {
             Replacers.remove(player);
             Replacers.put(player, id);
             player.sendMessage("Item id changed!");
-        }
-        else {
+        } else {
             if (!(player.getInventory().contains(277))) {
                 player.getInventory().addItem(new ItemStack(277, 1));
             }
             Replacers.put(player, id);
             player.sendMessage("ReplaceMode activated!");
         }
-        
+
         return false;
     }
-    public int getReplaceId(Player player){
-        if (isReplacer(player)){
+
+    public int getReplaceId(Player player) {
+        if (isReplacer(player)) {
             return Replacers.get(player);
         }
         return 0;
     }
 }
-

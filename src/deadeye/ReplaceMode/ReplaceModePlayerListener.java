@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * Handle events for all Player related events
+ * 
  * @author deadeye
  */
 public class ReplaceModePlayerListener extends PlayerListener {
@@ -22,9 +23,8 @@ public class ReplaceModePlayerListener extends PlayerListener {
 
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        if(plugin.isReplacer(player)) {
+        if (plugin.isReplacer(player)) {
             player.getInventory().addItem(new ItemStack(277, 1));
         }
     }
 }
-
