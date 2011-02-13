@@ -1,6 +1,6 @@
 name: ReplaceMode
 main: deadeye.ReplaceMode.ReplaceMode
-version: 0.1
+version: 0.2
 
 commands:
   replacemode:
@@ -8,5 +8,4 @@ commands:
     usage: |
            /<command> id [player]
            Example: /<command>  id - toggles ReplaceMode and/or sets id.
-           Example: /<command> id Deadeye - toggles ReplaceMode for Deadeye and/or sets id.
     aliases: rpm
