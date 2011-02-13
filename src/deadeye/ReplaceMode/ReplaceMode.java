@@ -5,7 +5,7 @@ import java.util.HashMap;
 //import java.util.List;
 import java.util.logging.Logger;
 
-//import org.bukkit.command.Command;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 //import org.bukkit.ChatColor;
@@ -60,21 +60,15 @@ public class ReplaceMode extends JavaPlugin {
         log.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
     }
 
-    /*
-     *      !!!!!!!!!!Auch im Import wieder einkommentieren!!!!!!!!!!
-     * @Override
-     * public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-     *  String[] trimmedArgs = args;
-     *  String commandName = command.getName().toLowerCase();
-     *   if (commandName.equals("buildmode")) {
-     *      return toggleBuilder(sender, trimmedArgs);
-     *  } else if (commandName.equals("buildmode-range")) {
-     *      return setPickrange(sender, trimmedArgs);
-     *  }
-     *  return false;
-     *  }
-     * 
-     * private Player matchPlayer(String split, CommandSender sender) {
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+        String commandName = command.getName().toLowerCase();
+        if (commandName.equals("replacemode")) {
+            return toggleReplacer(sender, args);
+        }
+        return false;
+    }
+     /* private Player matchPlayer(String split, CommandSender sender) {
      * Player player;
      * List<Player> players = getServer().matchPlayer(split);
      * if (players.isEmpty()) {
@@ -201,6 +195,10 @@ public class ReplaceMode extends JavaPlugin {
                 player.sendMessage("Please enter a different id!");
                 return false;
             }
+            if (id > 93) {
+                player.sendMessage("Please enter a different id!");
+                return false;
+            }
             if (isReplacer(player)) {
                 if (id == 93) {
                     if (idChecker(player.getItemInHand().getTypeId())) {
@@ -215,10 +213,6 @@ public class ReplaceMode extends JavaPlugin {
                     player.sendMessage("Not that block pal!");
                     return false;
                 }
-                if (id > 93) {
-                    player.sendMessage("Please enter a different id!");
-                    return false;
-                }
                 Replacers.remove(player);
                 Replacers.put(player, id);
                 player.sendMessage("Block id changed!");
@@ -229,7 +223,6 @@ public class ReplaceMode extends JavaPlugin {
             } else {
                 if (id == 93) {
                     if (idChecker(player.getItemInHand().getTypeId())) {
-                        Replacers.remove(player);
                         Replacers.put(player, player.getItemInHand().getTypeId());
                         player.sendMessage("ReplaceMode activated!");
                         if (!(player.getInventory().contains(277))) {

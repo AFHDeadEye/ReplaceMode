@@ -7,6 +7,6 @@ commands:
     description: Enters ReplaceMode and modifies ReplaceMode id.
     usage: |
            /<command> id [player]
-           Example: /<command>  id - toggles ReplaceMode and id.
-           Example: /<command> Deadeye - toggles ReplaceMode for Deadeye.
+           Example: /<command>  id - toggles ReplaceMode and/or sets id.
+           Example: /<command> id Deadeye - toggles ReplaceMode for Deadeye and/or sets id.
     aliases: rpm
