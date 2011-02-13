@@ -168,7 +168,7 @@ public class ReplaceMode extends JavaPlugin {
         }
         if (split.length == 0) {
             if (!(isReplacer(player))) {
-                player.sendMessage("Please Enter an item id!");
+                player.sendMessage("Please Enter a block id!");
                 return false;
             } else {
                 Replacers.remove(player);
@@ -192,15 +192,19 @@ public class ReplaceMode extends JavaPlugin {
                     if (idChecker(player.getItemInHand().getTypeId())){
                         Replacers.remove(player);
                         Replacers.put(player, player.getItemInHand().getTypeId());
-                        player.sendMessage("Item id changed!");
+                        player.sendMessage("Block id changed!");
                         return true;
                     }
-                    player.sendMessage("Not that item pal!");
+                    player.sendMessage("Not that block pal!");
+                    return false;
+                }
+                if (id > 93){
+                    player.sendMessage("Please enter a different id!");
                     return false;
                 }
                 Replacers.remove(player);
                 Replacers.put(player, id);
-                player.sendMessage("Item id changed!");
+                player.sendMessage("Block id changed!");
                 return true;
             } else {
                 if (!(player.getInventory().contains(277))) {
