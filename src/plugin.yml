@@ -1,5 +1,5 @@
 name: ReplaceMode
-main: deadeye.replacemode.ReplaceMode
+main: deadeye.ReplaceMode.ReplaceMode
 version: 0.1
 
 commands:

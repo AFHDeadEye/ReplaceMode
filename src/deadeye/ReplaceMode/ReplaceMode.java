@@ -113,6 +113,45 @@ public class ReplaceMode extends JavaPlugin {
         }
         return false;
     }
+    
+    public boolean idChecker (int id){
+        int failId[] = new int[28];
+        
+        failId[0] = 6;
+        failId[1] = 37;
+        failId[2] = 38;
+        failId[3] = 39;
+        failId[4] = 40;
+        failId[5] = 44;
+        failId[6] = 50;
+        failId[7] = 51;
+        failId[8] = 52;
+        failId[9] = 55;
+        failId[10] = 59;
+        failId[11] = 63;
+        failId[12] = 64;
+        failId[13] = 65;
+        failId[14] = 66;
+        failId[15] = 68;
+        failId[16] = 69;
+        failId[17] = 70;
+        failId[18] = 71;
+        failId[19] = 72;
+        failId[20] = 75;
+        failId[21] = 76;
+        failId[22] = 77;
+        failId[23] = 81;
+        failId[24] = 83;
+        failId[25] = 85;
+        failId[26] = 90;
+        failId[27] = 92;
+        for (int i = 0 ; i <= 27 ; i++){
+            if (id == failId[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public boolean toggleReplacer(CommandSender sender, String[] split) {
         int id = 0;
@@ -144,7 +183,21 @@ public class ReplaceMode extends JavaPlugin {
             return false;
         }
         if (split.length == 1) {
+            if (!(idChecker(id))){
+                player.sendMessage("Please enter a different id!");
+                return false;
+            }
             if (isReplacer(player)) {
+                if (id == 93){
+                    if (idChecker(player.getItemInHand().getTypeId())){
+                        Replacers.remove(player);
+                        Replacers.put(player, player.getItemInHand().getTypeId());
+                        player.sendMessage("Item id changed!");
+                        return true;
+                    }
+                    player.sendMessage("Not that item pal!");
+                    return false;
+                }
                 Replacers.remove(player);
                 Replacers.put(player, id);
                 player.sendMessage("Item id changed!");
