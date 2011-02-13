@@ -5,6 +5,7 @@ import java.util.HashMap;
 //import java.util.List;
 import java.util.logging.Logger;
 
+//import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 //import org.bukkit.ChatColor;
@@ -60,17 +61,38 @@ public class ReplaceMode extends JavaPlugin {
     }
 
     /*
-     * !!!!!!!!!!Auch im Import wieder einkommentieren!!!!!!!!!! private Player
-     * matchPlayer(String split, CommandSender sender) { Player player;
-     * List<Player> players = getServer().matchPlayer(split); if
-     * (players.isEmpty()) { sender.sendMessage(ChatColor.RED +
-     * "Unknown player"); player = null; } else { player = players.get(0); }
-     * return player; }
+     *      !!!!!!!!!!Auch im Import wieder einkommentieren!!!!!!!!!!
+     * @Override
+     * public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+     *  String[] trimmedArgs = args;
+     *  String commandName = command.getName().toLowerCase();
+     *   if (commandName.equals("buildmode")) {
+     *      return toggleBuilder(sender, trimmedArgs);
+     *  } else if (commandName.equals("buildmode-range")) {
+     *      return setPickrange(sender, trimmedArgs);
+     *  }
+     *  return false;
+     *  }
      * 
-     * private boolean anonymousCheck(CommandSender sender) { if (!(sender
-     * instanceof Player)) {
-     * sender.sendMessage("Cannot execute that command, I don't know who you are!"
-     * ); return true; } else { return false; } }
+     * private Player matchPlayer(String split, CommandSender sender) {
+     * Player player;
+     * List<Player> players = getServer().matchPlayer(split);
+     * if (players.isEmpty()) {
+     * sender.sendMessage(ChatColor.RED + "Unknown player");
+     * player = null;
+     * } else {
+     * player = players.get(0);
+     * }
+     * return player;
+     * }
+     * 
+     * private boolean anonymousCheck(CommandSender sender) {
+     * if (!(sender instanceof Player)) {
+     * sender.sendMessage("Cannot execute that command, I don't know who you are!");
+     * return true;
+     * } else {
+     * return false; }
+     * }
      */
     public void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
