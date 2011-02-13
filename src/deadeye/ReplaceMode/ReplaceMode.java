@@ -58,28 +58,20 @@ public class ReplaceMode extends JavaPlugin {
         PluginDescriptionFile pdfFile = this.getDescription();
         log.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
     }
-/*      !!!!!!!!!!Auch im Import wieder einkommentieren!!!!!!!!!!
-    private Player matchPlayer(String split, CommandSender sender) {
-        Player player;
-        List<Player> players = getServer().matchPlayer(split);
-        if (players.isEmpty()) {
-            sender.sendMessage(ChatColor.RED + "Unknown player");
-            player = null;
-        } else {
-            player = players.get(0);
-        }
-        return player;
-    }
 
-    private boolean anonymousCheck(CommandSender sender) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Cannot execute that command, I don't know who you are!");
-            return true;
-        } else {
-            return false;
-        }
-    }
-*/
+    /*
+     * !!!!!!!!!!Auch im Import wieder einkommentieren!!!!!!!!!! private Player
+     * matchPlayer(String split, CommandSender sender) { Player player;
+     * List<Player> players = getServer().matchPlayer(split); if
+     * (players.isEmpty()) { sender.sendMessage(ChatColor.RED +
+     * "Unknown player"); player = null; } else { player = players.get(0); }
+     * return player; }
+     * 
+     * private boolean anonymousCheck(CommandSender sender) { if (!(sender
+     * instanceof Player)) {
+     * sender.sendMessage("Cannot execute that command, I don't know who you are!"
+     * ); return true; } else { return false; } }
+     */
     public void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
         PluginDescriptionFile pdfFile = this.getDescription();
@@ -113,10 +105,10 @@ public class ReplaceMode extends JavaPlugin {
         }
         return false;
     }
-    
-    public boolean idChecker (int id){
+
+    public boolean idChecker(int id) {
         int failId[] = new int[28];
-        
+
         failId[0] = 6;
         failId[1] = 37;
         failId[2] = 38;
@@ -145,8 +137,8 @@ public class ReplaceMode extends JavaPlugin {
         failId[25] = 85;
         failId[26] = 90;
         failId[27] = 92;
-        for (int i = 0 ; i <= 27 ; i++){
-            if (id == failId[i]){
+        for (int i = 0; i <= 27; i++) {
+            if (id == failId[i]) {
                 return false;
             }
         }
@@ -183,30 +175,49 @@ public class ReplaceMode extends JavaPlugin {
             return false;
         }
         if (split.length == 1) {
-            if (!(idChecker(id))){
+            if (!(idChecker(id))) {
                 player.sendMessage("Please enter a different id!");
                 return false;
             }
             if (isReplacer(player)) {
-                if (id == 93){
-                    if (idChecker(player.getItemInHand().getTypeId())){
+                if (id == 93) {
+                    if (idChecker(player.getItemInHand().getTypeId())) {
                         Replacers.remove(player);
                         Replacers.put(player, player.getItemInHand().getTypeId());
                         player.sendMessage("Block id changed!");
+                        if (!(player.getInventory().contains(277))) {
+                            player.getInventory().addItem(new ItemStack(277, 1));
+                        }
                         return true;
                     }
                     player.sendMessage("Not that block pal!");
                     return false;
                 }
-                if (id > 93){
+                if (id > 93) {
                     player.sendMessage("Please enter a different id!");
                     return false;
                 }
                 Replacers.remove(player);
                 Replacers.put(player, id);
                 player.sendMessage("Block id changed!");
+                if (!(player.getInventory().contains(277))) {
+                    player.getInventory().addItem(new ItemStack(277, 1));
+                }
                 return true;
             } else {
+                if (id == 93) {
+                    if (idChecker(player.getItemInHand().getTypeId())) {
+                        Replacers.remove(player);
+                        Replacers.put(player, player.getItemInHand().getTypeId());
+                        player.sendMessage("ReplaceMode activated!");
+                        if (!(player.getInventory().contains(277))) {
+                            player.getInventory().addItem(new ItemStack(277, 1));
+                        }
+                        return true;
+                    }
+                    player.sendMessage("Not that block pal!");
+                    return false;
+                }
                 if (!(player.getInventory().contains(277))) {
                     player.getInventory().addItem(new ItemStack(277, 1));
                 }
